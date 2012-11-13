@@ -1,4 +1,3 @@
-require 'forwardable'
 require 'protobuf'
 require 'protobuf/logger'
 require 'protobuf/rpc/error'
@@ -7,10 +6,9 @@ require 'protobuf/rpc/connector'
 module Protobuf
   module Rpc
     class Client
-      extend Forwardable
       include Protobuf::Logger::LogMethods
 
-      delegate [:options, :complete_cb, :success_cb, :failure_cb], :to => :@connector
+      delegate :options, :complete_cb, :success_cb, :failure_cb, :to => :@connector
       attr_reader :connector
 
       # Create a new client with default options (defined in ClientConnection)
