@@ -11,7 +11,7 @@ module Protobuf
     def encode(stream, message)
       # FIXME make this not as ghetto
       unless message.initialized?
-        raise NotInitializedError, "Message #{message.class.name} is not initialized (one or more fields is improperly set): #{JSON.parse(message.to_json)}"
+        raise NotInitializedError, "Message #{message.class.name} is not initialized (one or more fields is improperly set): #{::JSON.parse(message.to_json)}"
       end
 
       message.each_field do |field, value|
