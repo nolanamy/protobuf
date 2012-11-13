@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   end
 
   s.add_dependency 'activesupport'
-  s.add_dependency 'ffi'
+  s.add_dependency 'ffi', '1.2.0.pre3'
   s.add_dependency 'multi_json'
   s.add_dependency 'thor'
 
