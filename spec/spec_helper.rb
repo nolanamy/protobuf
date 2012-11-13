@@ -1,5 +1,7 @@
-require 'simplecov'
-SimpleCov.start
+unless ENV['NO_COV'] || RUBY_PLATFORM =~ /java/i
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require 'rubygems'
 require 'bundler'

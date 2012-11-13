@@ -63,11 +63,11 @@ describe Protobuf::Rpc::Service do
     describe '.client' do
       it 'initializes a client object for this service' do
         client = double('client')
-        ::Protobuf::Rpc::Client.should_receive(:new)
-                                .with(hash_including({ :service => subject,
+        ::Protobuf::Rpc::Client.should_receive(:new).
+                                with(hash_including({ :service => subject,
                                                        :host => subject.host,
-                                                       :port => subject.port }))
-                                .and_return(client)
+                                                       :port => subject.port })).
+                                and_return(client)
         subject.client.should eq client
       end
     end

@@ -10,7 +10,7 @@ module Protobuf
       extend Forwardable
       include Protobuf::Logger::LogMethods
 
-      delegate [:options, :complete_cb, :success_cb, :failure_cb] => :@connector
+      delegate [:options, :complete_cb, :success_cb, :failure_cb], :to => :@connector
       attr_reader :connector
 
       # Create a new client with default options (defined in ClientConnection)

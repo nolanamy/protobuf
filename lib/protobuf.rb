@@ -46,6 +46,10 @@ module Protobuf
 		@_gc_pause_server_request = !!value
 	end
 
+  def self.platform_supports_fibers?
+    RUBY_PLATFORM !~ /java/i
+  end
+
   # Print Deprecation Warnings
   #
   # Default: true

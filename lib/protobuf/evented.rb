@@ -16,7 +16,16 @@
 require 'protobuf'
 Protobuf.connector_type = :evented
 
-require 'eventmachine'
-require 'protobuf/ext/eventmachine'
-require 'protobuf/rpc/servers/evented/server'
-require 'protobuf/rpc/connectors/eventmachine'
+begin
+  require 'eventmachine'
+  require 'protobuf/ext/eventmachine'
+  require 'protobuf/rpc/servers/evented/server'
+  require 'protobuf/rpc/connectors/eventmachine'
+rescue LoadError => e
+  if e.message =~ /Fiber/
+    $stdout.puts '[WARNING] Your platform does not support Fiber usage. Falling back to default of Socket client/server implementation.'
+    load 'protobuf/socket'
+  else
+    raise
+  end
+end

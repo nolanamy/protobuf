@@ -7,6 +7,8 @@ module Protobuf
       class EventMachine < Base
 
         def send_request
+          raise 'Fibers are not supported on your platform' unless ::Protobuf.platform_supports_fibers?
+
           ensure_em_running do
             f = Fiber.current
 

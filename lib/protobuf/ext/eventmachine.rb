@@ -1,4 +1,4 @@
-require 'fiber'
+require 'fiber' if ::Protobuf.platform_supports_fibers?
 
 # Method from em-synchrony
 # https://github.com/igrigorik/em-synchrony
@@ -8,6 +8,7 @@ require 'fiber'
 # paused and resumed based on IO scheduling
 module EventMachine
   def self.fiber_run(blk=nil, tail=nil, &block)
+    raise 'Fibers are not supported on your platform.' unless ::Protobuf.platform_supports_fibers?
     context = Proc.new{ Fiber.new{ (b = blk || block) and b.call }.resume }
     self.run(context, tail)
   end
