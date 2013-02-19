@@ -8,12 +8,10 @@ module Protobuf
         include Protobuf::Logger::LogMethods
 
         def send_request
-          timeout_wrap do
-            setup_connection
-            connect_to_rpc_server
-            post_init
-            read_response
-          end
+          setup_connection
+          connect_to_rpc_server
+          post_init
+          read_response
         ensure
           @socket.close if @socket
           @zmq_context.terminate if @zmq_context
@@ -39,6 +37,7 @@ module Protobuf
           @zmq_context = ::ZMQ::Context.new
           @socket = @zmq_context.socket(::ZMQ::REQ)
           zmq_error_check(@socket.connect("tcp://#{options[:host]}:#{options[:port]}"))
+          @socket.setsockopt(::ZMQ::RCVTIMEO, options[:timeout])
           log_debug { sign_message("Connection established #{options[:host]}:#{options[:port]}") }
         end
 
